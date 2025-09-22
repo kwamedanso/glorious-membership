@@ -2,6 +2,37 @@ import React, { useState, useEffect } from 'react';
 import '../components/editmember.css';
 import supabase from '../supabaseClient';
 import { useLocation } from 'react-router-dom';
+// import { native } from 'pg';
+
+const mydetails = {
+    "id": "2",
+    "membership_type": "Full Member",
+    "fullname": "Kwame Amoafo Danso",
+    "date_of_birth": "2025-09-21",
+    "gender": "male",
+    "calling": "Deacon",
+    "marital_status": "Single",
+    "call_number": 208001343,
+    "whatsapp_number": 208001343,
+    "email": "dansokwame96@gmail.com",
+    "gps_address": "GA-132-3456",
+    "location": "Mamprobi",
+    "hometown": "Accra",
+    "place_of_birth": "Accra",
+    "country_of_birth": "Ghana",
+    "nationality": "Ghanaian",
+    "holy_ghost_baptism": "Yes",
+    "date_of_holy_ghost_baptism": "2025-09-21",
+    "water_baptism": "Yes",
+    "date_of_water_baptism": "2025-09-21",
+    "officiating_minister": "Ps. Opuni Boateng",
+    "communicant": "Yes",
+    "level_of_education": "Degree",
+    "occupation": "Web Developer",
+    "emergency_contact_name": "Kofi Addo Danso",
+    "emergency_contact_number": 201230990
+}
+
 
 const EditMember = () => {
     // const [member, setMember] = useState({});
@@ -9,7 +40,7 @@ const EditMember = () => {
     const [error, setError] = useState(null);
     const [member, setMember] = useState({
         // Personal Bio-Data
-        fullName: '',
+        fullname: '',
         gender: '',
         maritalStatus: '',
         dateOfBirth: '',
@@ -86,18 +117,20 @@ const EditMember = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Form data submitted:", member);
+
+        let newMember = { ...member };
+        delete newMember.id
+
 
         try {
             const { data, error } = await supabase
                 .from("members")
-                .update(member)
+                .update(newMember)
                 .eq("id", uniqueId)
                 .select();
 
             if (error) throw error;
 
-            console.log("Updated member:", data);
             alert("Member updated successfully!");
         } catch (err) {
             console.error("Supabase update error:", err.message);
@@ -108,7 +141,6 @@ const EditMember = () => {
 
     return (
         <div className="form-container">
-            <h1>{member.fullName}</h1>
             <h1>Glorious (English) Assembly - Member Registration Form</h1>
             <form onSubmit={handleSubmit} className="user-form">
 
