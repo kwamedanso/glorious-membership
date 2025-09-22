@@ -82,25 +82,7 @@ const EditMember = () => {
         }));
     };
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     // Here you would integrate with Supabase
-    //     console.log('Form data submitted:', member);
-    //     try {
-    //         const { error } = await supabase
-    //             .from("members")
-    //             .update(member)
-    //             .eq("id", uniqueId)
-    //             .select();
 
-    //         if (error) throw error;
-
-    //         alert("Member updated successfully!");
-    //     } catch (err) {
-    //         console.error(err.message);
-    //         alert("Failed to update member");
-    //     }
-    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
