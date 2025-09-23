@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../components/editmember.css';
 import supabase from '../supabaseClient';
-import { useLocation } from 'react-router-dom';
-// import { native } from 'pg';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const mydetails = {
     "id": "2",
@@ -80,6 +79,7 @@ const EditMember = () => {
 
     const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
+    const navigate = useNavigate();
     const location = useLocation();
     const uniqueId = location?.state?.uniqueId;
     // Fetch data from Supabase
@@ -129,9 +129,14 @@ const EditMember = () => {
                 .eq("id", uniqueId)
                 .select();
 
-            if (error) throw error;
+            if (error) {
+                throw error;
+            } else {
+                alert("Member updated successfully!");
+                navigate("/id", { state: { member: data[0] } })
+            }
 
-            alert("Member updated successfully!");
+
         } catch (err) {
             console.error("Supabase update error:", err.message);
             alert("Failed to update member");
