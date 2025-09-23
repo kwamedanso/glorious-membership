@@ -3,81 +3,50 @@ import '../components/editmember.css';
 import supabase from '../supabaseClient';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const mydetails = {
-    "id": "2",
-    "membership_type": "Full Member",
-    "fullname": "Kwame Amoafo Danso",
-    "date_of_birth": "2025-09-21",
-    "gender": "male",
-    "calling": "Deacon",
-    "marital_status": "Single",
-    "call_number": 208001343,
-    "whatsapp_number": 208001343,
-    "email": "dansokwame96@gmail.com",
-    "gps_address": "GA-132-3456",
-    "location": "Mamprobi",
-    "hometown": "Accra",
-    "place_of_birth": "Accra",
-    "country_of_birth": "Ghana",
-    "nationality": "Ghanaian",
-    "holy_ghost_baptism": "Yes",
-    "date_of_holy_ghost_baptism": "2025-09-21",
-    "water_baptism": "Yes",
-    "date_of_water_baptism": "2025-09-21",
-    "officiating_minister": "Ps. Opuni Boateng",
-    "communicant": "Yes",
-    "level_of_education": "Degree",
-    "occupation": "Web Developer",
-    "emergency_contact_name": "Kofi Addo Danso",
-    "emergency_contact_number": 201230990
-}
-
 
 const EditMember = () => {
-    // const [member, setMember] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [member, setMember] = useState({
         // Personal Bio-Data
         fullname: '',
         gender: '',
-        maritalStatus: '',
-        dateOfBirth: '',
-        placeOfBirth: '',
+        marital_status: '',
+        date_of_birth: '',
+        place_of_birth: '',
 
         // Contact Information
-        callNumber: '',
-        whatsappNumber: '',
+        call_number: '',
+        whatsapp_number: '',
         email: '',
-        gpsAddress: '',
+        gps_address: '',
         location: '',
 
         // Origin & Nationality
         hometown: '',
         nationality: '',
-        countryOfBirth: '',
+        country_of_birth: '',
 
         // Spiritual Information
-        holyGhostBaptism: '',
-        dateOfHolyGhostBaptism: '',
-        waterBaptism: '',
-        dateOfWaterBaptism: '',
-        officiatingMinister: '',
+        holy_ghost_baptism: '',
+        date_of_holy_ghost_baptism: '',
+        water_baptism: '',
+        date_of_water_baptism: '',
+        officiating_minister: '',
         communicant: '',
 
         // Education & Occupation
-        levelOfEducation: '',
+        level_of_education: '',
         occupation: '',
 
         // Emergency Contact
-        emergencyContactName: '',
-        emergencyContactNumber: '',
+        emergency_contact_name: '',
+        emergency_contact_number: '',
 
         // Membership Information
-        membershipType: '',
+        membership_type: '',
     });
 
-    const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY;
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -176,8 +145,8 @@ const EditMember = () => {
                                 required
                             >
                                 <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
                             </select>
                         </div>
 
@@ -190,11 +159,11 @@ const EditMember = () => {
                                 onChange={handleChange}
                             >
                                 <option value="">Select Status</option>
-                                <option value="single">Single</option>
-                                <option value="married">Married</option>
-                                <option value="separated">Separated</option>
-                                <option value="divorced">Divorced</option>
-                                <option value="widowed">Widowed</option>
+                                <option value="Single">Single</option>
+                                <option value="Married">Married</option>
+                                <option value="Separated">Separated</option>
+                                <option value="Divorced">Divorced</option>
+                                <option value="Widowed">Widowed</option>
                             </select>
                         </div>
                     </div>
@@ -429,13 +398,14 @@ const EditMember = () => {
                             onChange={handleChange}
                         >
                             <option value="">Select Education Level</option>
-                            <option value="primary">Basic/Primary School</option>
-                            <option value="secondary">Secondary School</option>
-                            <option value="diploma">Diploma</option>
-                            <option value="bachelor">Bachelor's Degree</option>
-                            <option value="master">Master's Degree</option>
-                            <option value="phd">PhD</option>
-                            <option value="other">Other</option>
+                            <option value="Primary">Basic/Primary School</option>
+                            <option value="Secondary">Secondary School</option>
+                            <option value="Tech/Voc">Technical/Vocational Training</option>
+                            <option value="Diploma">Diploma</option>
+                            <option value="Bachelor">Bachelor's Degree</option>
+                            <option value="Master">Master's Degree</option>
+                            <option value="PhD">PhD</option>
+                            <option value="Other">Other</option>
                         </select>
                     </div>
 
@@ -447,7 +417,7 @@ const EditMember = () => {
                             name="occupation"
                             value={member.occupation}
                             onChange={handleChange}
-                            placeholder="e.g. Teacher, Engineer, Nurse"
+                            placeholder="e.g. Teacher, Engineer, Nurse..."
                         />
                     </div>
                 </fieldset>
@@ -494,9 +464,9 @@ const EditMember = () => {
                             onChange={handleChange}
                         >
                             <option value="">Select Membership Type</option>
-                            <option value="full">Full Member</option>
-                            <option value="visitor">Visitor</option>
-                            <option value="newConvert">New Convert</option>
+                            <option value="Full Member">Full Member</option>
+                            <option value="Visitor">Visitor</option>
+                            <option value="New Convert">New Convert</option>
                         </select>
                     </div>
                 </fieldset>
