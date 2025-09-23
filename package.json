@@ -12,8 +12,6 @@
   "dependencies": {
     "@netlify/functions": "^4.2.5",
     "@supabase/supabase-js": "^2.57.4",
-    "googleapis": "^160.0.0",
-    "html-to-image": "^1.11.13",
     "html2canvas": "^1.4.1",
     "nvm": "^0.0.4",
     "pg": "^8.16.3",

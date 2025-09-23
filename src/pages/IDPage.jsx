@@ -23,65 +23,7 @@ export default function IDPage() {
 
     const member = navigate?.state?.member
 
-    // console.log(navigate?.state?.member)
 
-    // const handleExport = async () => {
-    //     if (componentRef.current === null) return;
-
-    //     try {
-    //         const { toPng } = await import('html-to-image');
-
-    //         const dataUrl = await toPng(componentRef.current, {
-    //             quality: 1,
-    //             pixelRatio: 3,
-    //             backgroundColor: '#000000ff',
-    //             style: {
-    //                 transform: 'scale(1)',
-    //                 transformOrigin: 'top left'
-    //             }
-    //         });
-
-    //         const link = document.createElement('a');
-    //         link.download = `id-card-${member?.idNumber || 'member'}.png`;
-    //         link.href = dataUrl;
-    //         link.click();
-    //     } catch (error) {
-    //         console.error('Error exporting image:', error);
-    //     }
-    // };
-
-
-
-    // const handleExport = async () => {
-    //     if (componentRef.current === null) return;
-
-    //     try {
-    //         const { toPng } = await import('html-to-image');
-    //         const dataUrl = await toPng(componentRef.current, {
-    //             quality: 1,
-    //             pixelRatio: 2,
-    //             backgroundColor: '#ffffff',
-    //         });
-
-    //         // Simple download function
-    //         const link = document.createElement('a');
-    //         link.download = `id-card-${member.idNumber}.png`;
-    //         link.href = dataUrl;
-    //         document.body.appendChild(link);
-    //         link.click();
-    //         document.body.removeChild(link);
-
-    //         // Mobile helper
-    //         if (/Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-    //             setTimeout(() => {
-    //                 alert('Tip: Long-press the ID card image to save it directly');
-    //             }, 1000);
-    //         }
-
-    //     } catch (error) {
-    //         console.error('Error:', error);
-    //     }
-    // };
 
 
     const handleExport = async () => {
