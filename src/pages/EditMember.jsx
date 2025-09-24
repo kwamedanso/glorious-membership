@@ -10,6 +10,9 @@ const EditMember = () => {
     const [member, setMember] = useState({
         // Personal Bio-Data
         fullname: '',
+        first_name: '',
+        other_names: '',
+        surname: '',
         gender: '',
         calling: '',
         marital_status: '',
@@ -64,7 +67,6 @@ const EditMember = () => {
 
             if (error) throw error;
             setMember({ ...data });
-            console.log(data)
         } catch (error) {
             setError(error.message);
         } finally {
@@ -80,7 +82,7 @@ const EditMember = () => {
         const { name, value, type, checked } = e.target;
         setMember(prev => ({
             ...prev,
-            [name]: type === 'checkbox' ? checked : value
+            [name]: type === 'checkbox' ? checked === true ? 'Yes' : 'No' : value
         }));
     };
 
@@ -123,7 +125,44 @@ const EditMember = () => {
                 {/* Personal Bio-Data Section */}
                 <fieldset>
                     <legend>Personal Bio-Data</legend>
-                    <div className="form-group">
+                    <div className='form-row'>
+                        <div className="form-group">
+                            <label htmlFor="firstName">First Name *</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                name="first_name"
+                                placeholder='Enter first name...'
+                                value={member.first_name || ""}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="otherNames">Other Names</label>
+                            <input
+                                type="text"
+                                id="otherNames"
+                                name="other_names"
+                                placeholder='Enter other names...'
+                                value={member.other_names || ""}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="surname">Surname *</label>
+                            <input
+                                type="text"
+                                id="surname"
+                                name="surname"
+                                placeholder='Enter surname...'
+                                value={member.surname || ""}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </div>
+                    {/* <div className="form-group">
                         <label htmlFor="fullName">Full Name *</label>
                         <input
                             type="text"
@@ -134,7 +173,7 @@ const EditMember = () => {
                             onChange={handleChange}
                             required
                         />
-                    </div>
+                    </div> */}
 
                     <div className="form-row">
                         <div className="form-group">
@@ -153,7 +192,7 @@ const EditMember = () => {
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="calling">Callinng</label>
+                            <label htmlFor="calling">Calling</label>
                             <select
                                 id="calling"
                                 name="calling"
@@ -316,7 +355,7 @@ const EditMember = () => {
                                 name="country_of_birth"
                                 value={member.country_of_birth}
                                 onChange={handleChange}
-                                placeholder='Ghana'
+                                placeholder='e.g. Ghana'
                             />
                         </div>
                     </div>
@@ -398,7 +437,7 @@ const EditMember = () => {
                             type="checkbox"
                             id="communicant"
                             name="communicant"
-                            checked={member.communicant}
+                            checked={member.communicant == 'Yes' ? true : false}
                             onChange={handleChange}
                         />
                         <label htmlFor="communicant">Communicant Member</label>

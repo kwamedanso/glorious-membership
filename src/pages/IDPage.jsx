@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import "../components/IDCard.css"
 import { QRCodeSVG } from 'qrcode.react';
 import logo from "../assets/logo_cop.png"
@@ -6,17 +6,9 @@ import profile from "../assets/ghost-squadron-removebg-preview.png"
 import { useLocation } from 'react-router-dom';
 
 
-// const member = {
-//     name: "Wade Warren",
-//     birthDate: "01.02.1995",
-//     nationality: "Sri Lankan",
-//     idNumber: "SITS-4569875",
-//     expDate: "01.02.2025",
-//     profileImage: true,
-//     qrCode: null,
-//     phoneNumber: "784 658 987 123"
-// }
 export default function IDPage() {
+    const [imagePreview, setImagePreview] = useState(null);
+    const fileInputRef = useRef(null);
     const componentRef = useRef();
 
     const navigate = useLocation()
@@ -24,7 +16,16 @@ export default function IDPage() {
     const member = navigate?.state?.member
 
 
+    const fullName = `${member?.first_name} ${member?.other_names} ${member?.surname}`?.split(" ").filter(s => s).join(" ")
 
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = (e) => setImagePreview(e.target.result);
+            reader.readAsDataURL(file);
+        }
+    };
 
     const handleExport = async () => {
         if (componentRef.current === null) return;
@@ -69,8 +70,8 @@ export default function IDPage() {
                     {/* Header Section */}
                     <div className="id-card-header">
                         <div className="profile-image-container">
-                            {true ? (
-                                <img src={profile} alt="Profile" className="profile-image" />
+                            {imagePreview ? (
+                                <img src={imagePreview} alt="Profile Preview" className="profile-image" style={{ objectFit: "cover" }} />
                             ) : (
                                 <div className="profile-placeholder">
                                     <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,7 +85,7 @@ export default function IDPage() {
 
                     {/* Name Section */}
                     <div className="name-section">
-                        <h2 className="member-name">{member.fullname}</h2>
+                        <h2 className="member-name">{fullName}</h2>
                     </div>
 
                     {/* Details Section */}
@@ -141,9 +142,22 @@ export default function IDPage() {
                     </div>
                 </div>
             </div>
-            <button className="export-button" onClick={handleExport}>
-                Download ID Card
-            </button>
+            <>
+                <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleImageUpload}
+                    accept="image/*"
+                    style={{ display: 'none' }}
+                />
+                <button className='upload-button' onClick={() => fileInputRef.current?.click()}>
+                    Upload Profile Image
+                </button> <br />
+                <button className="export-button" onClick={handleExport}>
+                    Download ID Card
+                </button>
+
+            </>
         </div>
     );
 

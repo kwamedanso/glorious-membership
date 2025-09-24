@@ -90,6 +90,7 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 5px;
             padding: 10px;
+            border: 1px solid gainsboro;
         }
 
         .detail-row {
@@ -197,6 +198,11 @@
 
 .export-button:active {
     transform: translateY(0);
+}
+
+.upload-button{
+    margin-top: 25px;
+    border-radius: 25px;
 }
 
         @media (max-width: 480px) {
