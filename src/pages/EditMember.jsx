@@ -11,6 +11,7 @@ const EditMember = () => {
         // Personal Bio-Data
         fullname: '',
         gender: '',
+        calling: '',
         marital_status: '',
         date_of_birth: '',
         place_of_birth: '',
@@ -63,6 +64,7 @@ const EditMember = () => {
 
             if (error) throw error;
             setMember({ ...data });
+            console.log(data)
         } catch (error) {
             setError(error.message);
         } finally {
@@ -147,6 +149,23 @@ const EditMember = () => {
                                 <option value="">Select Gender</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="calling">Callinng</label>
+                            <select
+                                id="calling"
+                                name="calling"
+                                value={member.calling}
+                                onChange={handleChange}
+                            >
+                                <option value="">Select Calling</option>
+                                <option value="Brother">Brother</option>
+                                <option value="Sister">Sister</option>
+                                <option value="Elder">Elder</option>
+                                <option value="Deacon">Deacon</option>
+                                <option value="Deaconess">Deaconess</option>
                             </select>
                         </div>
 

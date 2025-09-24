@@ -104,7 +104,7 @@ export default function IDPage() {
                             <div className="detail-row">
                                 <div className="detail-item">
                                     <span className="detail-label">Contact</span>
-                                    <span className="detail-value">0{member.call_number}</span>
+                                    <span className="detail-value">{member.call_number.slice(0, 1) == 0 ? null : 0}{member.call_number}</span>
                                 </div>
                                 <div className="detail-item">
                                     <span className="detail-label">Gender</span>

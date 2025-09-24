@@ -2,9 +2,12 @@ import { useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 import "../components/login.css"
 import logo from "../assets/logo_cop.png"
+import supabase from '../supabaseClient';
+
 
 const Login = () => {
     const [uniqueId, setUniqueId] = useState("");
+    // const [member, setMember] = useState({})
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -14,9 +17,31 @@ const Login = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // Fetch data from Supabase
+        const fetchMember = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('members')
+                    .select('*')
+                    .eq('id', uniqueId) // filter by id (or another unique field)
+                    .single();    // ensures only one item is returned
+
+                if (error) {
+                    alert("Unique ID not found retry.")
+                } else {
+                    navigate("/edit-member", { state: { uniqueId: uniqueId } })
+                }
+            } catch (error) {
+                console.log(error.message);
+            } finally {
+
+            }
+        };
+
+        fetchMember()
         // Here you would handle login logic
         // console.log('Login attempt with:', uniqueId);
-        navigate("/edit-member", { state: { uniqueId: uniqueId } })
     };
 
     return (

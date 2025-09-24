@@ -8,7 +8,7 @@
 }
 .id-card {
           width: 310px;
-          height: 570px;
+          /* height: 570px; */
           /* background: linear-gradient(180deg, #6366f1 0%, #8b5cf6 30%, #f8fafc 30%, #f8fafc 100%); */
           background: linear-gradient(150deg, #8486ff 0%, #4f04ff 25%, #f8fafc 25%, #f8fafc 100%);
           /* background: linear-gradient(180deg, #ffffff 0%, #756af7 25%, #ffffff 25%, #ffffff 100%); */
@@ -71,6 +71,7 @@
         .name-section {
           text-align: center;
           background: #f8fafc;
+          /* white-space: nowrap; */
         }
 
         .member-name {
@@ -201,7 +202,7 @@
         @media (max-width: 480px) {
           .id-card {
             width: 310px;
-            height: 550px;
+            /* height: 550px; */
           }
 
           .member-name {
