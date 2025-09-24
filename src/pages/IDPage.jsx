@@ -119,8 +119,8 @@ export default function IDPage() {
                         {/* <h3 className="qr-title">Scan QR Code</h3> */}
                         <div className="qr-code-container">
                             <QRCodeSVG
-                                value={"KDanso1234"}
-                                title={"Title for my QR Code"}
+                                value={member.id}
+                                title={"Member ID QRCode"}
                                 size={130}
                                 bgColor={"#ffffff"}
                                 fgColor={"#000000"}
