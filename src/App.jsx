@@ -1,13 +1,10 @@
-import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import './App.css'
 import EditMember from './pages/EditMember'
 import Login from './pages/Login'
 import IDPage from './pages/IDPage'
-import ImagePreview from './pages/ImagePreview'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
