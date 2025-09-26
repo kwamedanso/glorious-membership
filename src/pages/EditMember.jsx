@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import '../components/editmember.css';
 import supabase from '../supabaseClient';
 import { useNavigate, useLocation } from 'react-router-dom';
+import logo from "../assets/logo_cop.png"
 
 
 const EditMember = () => {
@@ -119,7 +120,12 @@ const EditMember = () => {
 
     return (
         <div className="form-container">
-            <h1>Glorious (English) Assembly - Member Registration Form</h1>
+            <div style={{ display: "flex", alignItems: "", justifyContent: "center" }}>
+                <div><img src={logo} alt="COP_logo" style={{ width: "50px", height: "50px" }} /></div>
+                <h1>Glorious (English) Assembly</h1>
+
+            </div>
+            <h1>Membership Data Update</h1>
             <form onSubmit={handleSubmit} className="user-form">
 
                 {/* Personal Bio-Data Section */}
