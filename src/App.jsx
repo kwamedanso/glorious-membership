@@ -3,6 +3,7 @@ import './App.css'
 import EditMember from './pages/EditMember'
 import Login from './pages/Login'
 import IDPage from './pages/IDPage'
+import CreateMember from './pages/CreateMember'
 
 function App() {
 
@@ -11,8 +12,9 @@ function App() {
       <Routes>
         <Route path='/edit-member' element={<EditMember />} />
         <Route path='/' element={<Login />} />
-        <Route path='/home' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/id' element={<IDPage />} />
+        <Route path='/create-new' element={<CreateMember />} />
       </Routes>
     </>
   )

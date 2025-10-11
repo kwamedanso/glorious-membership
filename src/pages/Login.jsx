@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react';
 import "../components/login.css"
 import logo from "../assets/logo_cop.png"
@@ -79,7 +79,7 @@ const Login = () => {
                 </form>
 
                 <div className="signup-section">
-                    <p>Don't have an account? <a href="#signup">Sign up</a></p>
+                    <p>Don't have an account? <Link to={"/create-new"}>Sign up</Link></p>
                 </div>
             </div>
         </div>
