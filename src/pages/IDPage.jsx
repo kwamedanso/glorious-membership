@@ -16,7 +16,7 @@ export default function IDPage() {
     const member = navigate?.state?.member
 
 
-    const fullName = `${member?.first_name} ${member?.other_names} ${member?.surname}`?.split(" ").filter(s => s).join(" ")
+    const fullName = `${member?.first_name} ${member.other_names === null ? "" : member?.other_names} ${member?.surname}`?.split(" ").filter(s => s).join(" ");
 
     const handleImageUpload = (event) => {
         const file = event.target.files[0];
@@ -105,7 +105,7 @@ export default function IDPage() {
                             <div className="detail-row">
                                 <div className="detail-item">
                                     <span className="detail-label">Contact</span>
-                                    <span className="detail-value">{member.call_number.slice(0, 1) == 0 ? null : 0}{member.call_number}</span>
+                                    <span className="detail-value">{member.call_number.slice(0, 1) == 0 ? null : 0}{member.call_number.split(",")[0]}</span>
                                 </div>
                                 <div className="detail-item">
                                     <span className="detail-label">Gender</span>
