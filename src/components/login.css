@@ -156,10 +156,36 @@ body {
   cursor: pointer;
   transition: background-color 0.3s;
   margin-top: 10px;
+
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .login-button:hover {
   background-color: var(--primary-dark);
+}
+
+.login-button:disabled {
+  background-color: #7474cd;
+  cursor: not-allowed;
+}
+
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .signup-section {

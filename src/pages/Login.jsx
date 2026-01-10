@@ -7,6 +7,7 @@ import supabase from '../supabaseClient';
 
 const Login = () => {
     const [uniqueId, setUniqueId] = useState("");
+    const [loading, setLoading] = useState(false)
     // const [member, setMember] = useState({})
     const navigate = useNavigate()
 
@@ -21,6 +22,7 @@ const Login = () => {
         // Fetch data from Supabase
         const fetchMember = async () => {
             try {
+                setLoading(true)
                 const { data, error } = await supabase
                     .from('members')
                     .select('*')
@@ -30,18 +32,16 @@ const Login = () => {
                 if (error) {
                     alert("Unique ID not found retry.")
                 } else {
-                    navigate("/edit-member", { state: { uniqueId: uniqueId } })
+                    navigate(`/edit-member/${uniqueId}`)
                 }
             } catch (error) {
                 console.log(error.message);
             } finally {
-
+                setLoading(false)
             }
         };
 
         fetchMember()
-        // Here you would handle login logic
-        // console.log('Login attempt with:', uniqueId);
     };
 
     return (
@@ -75,12 +75,21 @@ const Login = () => {
                         />
                     </div>
 
-                    <button type="submit" className="login-button">Sign In</button>
+                    <button type="submit" className="login-button" disabled={loading}>
+                        {loading ? (
+                            <>
+                                <span className="spinner"></span>
+                                Logging in...
+                            </>
+                        ) : (
+                            "Sign In"
+                        )}
+                    </button>
                 </form>
 
-                <div className="signup-section">
+                {/* <div className="signup-section">
                     <p>Don't have an account? <Link to={"/create-new"}>Sign up</Link></p>
-                </div>
+                </div> */}
             </div>
         </div>
     );

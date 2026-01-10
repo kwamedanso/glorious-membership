@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path='/edit-member' element={<EditMember />} />
+        <Route path='/edit-member/:id' element={<EditMember />} />
         <Route path='/' element={<Login />} />
         <Route path='/login' element={<Login />} />
         <Route path='/id' element={<IDPage />} />

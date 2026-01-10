@@ -142,10 +142,34 @@ button {
 .submit-btn {
   background-color: var(--primary-color);
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .submit-btn:hover {
   background-color: var(--accent-color);
+}
+
+.submit-btn:disabled {
+  background-color: #7272c4;
+  cursor: not-allowed;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #ffffff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .cancel-btn {

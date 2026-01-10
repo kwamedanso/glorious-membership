@@ -3,6 +3,8 @@ import '../components/editmember.css';
 import supabase from '../supabaseClient';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from "../assets/logo_cop.png"
+import ThreeDotLoader from '../components/ThreeDotLoader';
+import { useParams } from 'react-router-dom';
 
 
 const EditMember = () => {
@@ -41,6 +43,8 @@ const EditMember = () => {
         communicant: '',
 
         // Education & Occupation
+        occupation_status: '',
+        occupation_status: '',
         level_of_education: '',
         occupation: '',
 
@@ -51,6 +55,9 @@ const EditMember = () => {
         // Membership Information
         membership_type: '',
     });
+
+    const { id } = useParams();
+
 
 
     const navigate = useNavigate();
@@ -63,7 +70,7 @@ const EditMember = () => {
             const { data, error } = await supabase
                 .from('members')
                 .select('*')
-                .eq('id', uniqueId) // filter by id (or another unique field)
+                .eq('id', id) // filter by id (or another unique field)
                 .single();    // ensures only one item is returned
 
             if (error) throw error;
@@ -100,7 +107,7 @@ const EditMember = () => {
             const { data, error } = await supabase
                 .from("members")
                 .update(newMember)
-                .eq("id", uniqueId)
+                .eq("id", id)
                 .select();
 
             if (error) {
@@ -116,6 +123,10 @@ const EditMember = () => {
             alert("Failed to update member");
         }
     };
+
+    if (loading) {
+        return <ThreeDotLoader />
+    }
 
 
     return (
@@ -206,11 +217,11 @@ const EditMember = () => {
                                 onChange={handleChange}
                             >
                                 <option value="">Select Calling</option>
-                                <option value="Brother">Brother</option>
-                                <option value="Sister">Sister</option>
                                 <option value="Elder">Elder</option>
                                 <option value="Deacon">Deacon</option>
                                 <option value="Deaconess">Deaconess</option>
+                                <option value="Brother">Brother</option>
+                                <option value="Sister">Sister</option>
                             </select>
                         </div>
 
@@ -239,7 +250,7 @@ const EditMember = () => {
                                 type="date"
                                 id="dateOfBirth"
                                 name="date_of_birth"
-                                value={member.date_of_birth}
+                                value={member.date_of_birth || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -251,7 +262,7 @@ const EditMember = () => {
                                 id="placeOfBirth"
                                 name="place_of_birth"
                                 placeholder='Enter your place of birth...'
-                                value={member.place_of_birth}
+                                value={member.place_of_birth || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -294,7 +305,7 @@ const EditMember = () => {
                                 id="whatsappNumber"
                                 name="whatsapp_number"
                                 placeholder='e.g. 0201229009'
-                                value={member.whatsapp_number}
+                                value={member.whatsapp_number || ""}
                                 onChange={handleChange}
                             />
                         </div>
@@ -306,7 +317,7 @@ const EditMember = () => {
                             type="text"
                             id="gpsAddress"
                             name="gps_address"
-                            value={member.gps_address}
+                            value={member.gps_address || ""}
                             onChange={handleChange}
                             placeholder="e.g. AX-1234-5678"
                         />
@@ -318,7 +329,7 @@ const EditMember = () => {
                             type="text"
                             id="location"
                             name="location"
-                            value={member.location}
+                            value={member.location || ""}
                             onChange={handleChange}
                             placeholder='e.g. Mango down'
                         />
@@ -334,7 +345,7 @@ const EditMember = () => {
                             type="text"
                             id="hometown"
                             name="hometown"
-                            value={member.hometown}
+                            value={member.hometown || ""}
                             onChange={handleChange}
                             placeholder='e.g. Salt Pond'
                         />
@@ -347,7 +358,7 @@ const EditMember = () => {
                                 type="text"
                                 id="nationality"
                                 name="nationality"
-                                value={member.nationality}
+                                value={member.nationality || ""}
                                 onChange={handleChange}
                                 placeholder='e.g. Ghanaian'
                             />
@@ -359,7 +370,7 @@ const EditMember = () => {
                                 type="text"
                                 id="countryOfBirth"
                                 name="country_of_birth"
-                                value={member.country_of_birth}
+                                value={member.country_of_birth || ""}
                                 onChange={handleChange}
                                 placeholder='e.g. Ghana'
                             />
@@ -474,6 +485,21 @@ const EditMember = () => {
                     </div>
 
                     <div className="form-group">
+                        <label htmlFor="calling">Occupation Status</label>
+                        <select
+                            id="occupation_status"
+                            name="occupation_status"
+                            value={member.occupation_status || ""}
+                            onChange={handleChange}
+                        >
+                            <option value="">Select Occupation Status</option>
+                            <option value="STUDENT">Student</option>
+                            <option value="EMPLOYED">Employed</option>
+                            <option value="UNEMPLOYED">Unemployed</option>
+                        </select>
+                    </div>
+
+                    {member.occupation_status !== "UNEMPLOYED" && <div className="form-group">
                         <label htmlFor="occupation">Occupation</label>
                         <input
                             type="text"
@@ -481,9 +507,9 @@ const EditMember = () => {
                             name="occupation"
                             value={member.occupation}
                             onChange={handleChange}
-                            placeholder="e.g. Teacher, Engineer, Nurse..."
+                            placeholder={member.occupation_status === "EMPLOYE" ? `e.g. Teacher, Nurse...` : `University of Ghana, Accra Girls SHS...`}
                         />
-                    </div>
+                    </div>}
                 </fieldset>
 
                 {/* Emergency Contact Section */}
@@ -528,15 +554,24 @@ const EditMember = () => {
                             onChange={handleChange}
                         >
                             <option value="">Select Membership Type</option>
-                            <option value="Full Member">Full Member</option>
-                            <option value="Visitor">Visitor</option>
-                            <option value="New Convert">New Convert</option>
+                            <option value="MEMBER">Member</option>
+                            <option value="REGULAR VISITOR">Regular Visitor</option>
+                            <option value="NEW CONVERT">New Convert</option>
                         </select>
                     </div>
                 </fieldset>
 
                 <div className="form-actions">
-                    <button type="submit" className="submit-btn">Submit Form</button>
+                    <button type="submit" className="submit-btn" disabled={loading}>
+                        {loading ? (
+                            <>
+                                <span className="spinner"></span>
+                                Submitting...
+                            </>
+                        ) : (
+                            "Submit Form"
+                        )}
+                    </button>
                     {/* <button type="button" className="cancel-btn">Cancel</button> */}
                 </div>
             </form>
