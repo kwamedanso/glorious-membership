@@ -21,18 +21,20 @@ const Login = () => {
 
         // Fetch data from Supabase
         const fetchMember = async () => {
+            let userId = uniqueId.toUpperCase();
             try {
                 setLoading(true)
                 const { data, error } = await supabase
                     .from('members')
                     .select('*')
-                    .eq('id', uniqueId) // filter by id (or another unique field)
+                    .eq('id', userId) // filter by id (or another unique field)
                     .single();    // ensures only one item is returned
 
                 if (error) {
                     alert("Unique ID not found retry.")
+                    // setLoading(false)
                 } else {
-                    navigate(`/edit-member/${uniqueId}`)
+                    navigate(`/edit-member/${userId}`)
                 }
             } catch (error) {
                 console.log(error.message);
