@@ -203,8 +203,8 @@ const EditMember = () => {
                                 required
                             >
                                 <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
                             </select>
                         </div>
 
@@ -217,41 +217,43 @@ const EditMember = () => {
                                 onChange={handleChange}
                             >
                                 <option value="">Select Calling</option>
-                                <option value="Elder">Elder</option>
-                                <option value="Deacon">Deacon</option>
-                                <option value="Deaconess">Deaconess</option>
-                                <option value="Brother">Brother</option>
-                                <option value="Sister">Sister</option>
+                                <option value="ELDER">Elder</option>
+                                <option value="DEACON">Deacon</option>
+                                <option value="DEACONESS">Deaconess</option>
+                                <option value="BROTHER">Brother</option>
+                                <option value="SISTER">Sister</option>
                             </select>
                         </div>
 
                         <div className="form-group">
-                            <label htmlFor="maritalStatus">Marital Status</label>
+                            <label htmlFor="maritalStatus">Marital Status *</label>
                             <select
                                 id="maritalStatus"
                                 name="marital_status"
                                 value={member.marital_status}
                                 onChange={handleChange}
+                                required
                             >
                                 <option value="">Select Status</option>
-                                <option value="Single">Single</option>
-                                <option value="Married">Married</option>
-                                <option value="Separated">Separated</option>
-                                <option value="Divorced">Divorced</option>
-                                <option value="Widowed">Widowed</option>
+                                <option value="SINGLE">Single</option>
+                                <option value="MARRID">Married</option>
+                                <option value="SEPARATED">Separated</option>
+                                <option value="DIVORCED">Divorced</option>
+                                <option value="WIDOWED">Widowed</option>
                             </select>
                         </div>
                     </div>
 
                     <div className="form-row">
                         <div className="form-group">
-                            <label htmlFor="dateOfBirth">Date of Birth</label>
+                            <label htmlFor="dateOfBirth">Date of Birth *</label>
                             <input
                                 type="date"
                                 id="dateOfBirth"
                                 name="date_of_birth"
                                 value={member.date_of_birth || ""}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
 
@@ -389,6 +391,7 @@ const EditMember = () => {
                                 name="holy_ghost_baptism"
                                 value={member.holy_ghost_baptism}
                                 onChange={handleChange}
+                                required
                             >
                                 <option value="">Select Option</option>
                                 <option value="Yes">Yes</option>
@@ -417,6 +420,7 @@ const EditMember = () => {
                                 name="water_baptism"
                                 value={member.water_baptism}
                                 onChange={handleChange}
+                                required
                             >
                                 <option value="">Select Option</option>
                                 <option value="Yes">Yes</option>
@@ -485,7 +489,7 @@ const EditMember = () => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="calling">Occupation Status</label>
+                        <label htmlFor="occupation_status">Occupation Status</label>
                         <select
                             id="occupation_status"
                             name="occupation_status"

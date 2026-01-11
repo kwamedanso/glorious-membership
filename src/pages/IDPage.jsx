@@ -45,7 +45,7 @@ export default function IDPage() {
             setLoading(true);
             const { data, error } = await supabase
                 .from('members')
-                .select('first_name, other_names, surname, call_number, whatsapp_number')
+                .select('first_name, other_names, surname, call_number, whatsapp_number, calling')
                 .eq('bible_study_group', member.bible_study_group);
 
             if (error) throw error;
@@ -202,7 +202,7 @@ export default function IDPage() {
                         Upload Profile Image
                     </button> <br />
                     <button className={styles['view-group-btn']} onClick={() => setIsModalOpen(true)}>
-                        {loading ? "Loading..." : "View Group"} <FaPeopleGroup />
+                        {loading ? "Loading..." : "View Group Members"} <FaPeopleGroup />
                     </button>
                     <button className={styles['export-button']} onClick={handleExport}>
                         Download ID Card
@@ -225,7 +225,7 @@ export default function IDPage() {
                                     <div key={index} className={styles['member-item']}>
                                         <div className={styles['member-info']}>
                                             <p className={styles['member-label-text']}>
-                                                <strong>Name:</strong> {formatName(member)}
+                                                <strong>Name:</strong> {member.calling == "ELDER" ? member.calling : member.calling == "DEACON" ? member.calling : member.calling == "DEACONESS" ? member.calling : ""} {formatName(member)}
                                             </p>
 
                                             <div className={styles['number-row']}>
