@@ -95,15 +95,41 @@ const EditMember = () => {
     };
 
 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        let newMember = { ...member };
-        delete newMember.id
+        // 1. Define required fields and their readable labels
+        const requiredFields = {
+            first_name: "First Name",
+            surname: "Surname",
+            gender: "Gender",
+            marital_status: "Marital Status",
+            date_of_birth: "Date of Birth",
+            call_number: "Call Number",
+            holy_ghost_baptism: "Holy Ghost Baptism",
+            water_baptism: "Water Baptism"
+        };
 
+        // 2. Identify which required fields are empty
+        const missingFields = Object.keys(requiredFields).filter(field => {
+            const value = member[field];
+            // Checks for null, undefined, or empty strings
+            return !value || (typeof value === 'string' && value.trim() === "");
+        });
+
+        // 3. If there are missing fields, alert the user and stop the submission
+        if (missingFields.length > 0) {
+            const missingLabels = missingFields.map(field => requiredFields[field]);
+            alert(`Please fill in the following required fields:\n\n- ${missingLabels.join('\n- ')}`);
+            return; // Stop the function here
+        }
+
+        // 4. Proceed with submission if validation passes
+        let newMember = { ...member };
+        delete newMember.id;
 
         try {
+            setLoading(true); // Ensure loading state is active during DB call
             const { data, error } = await supabase
                 .from("members")
                 .update(newMember)
@@ -114,15 +140,44 @@ const EditMember = () => {
                 throw error;
             } else {
                 alert("Member updated successfully!");
-                navigate("/id", { state: { member: data[0] } })
+                navigate("/id", { state: { member: data[0] } });
             }
-
-
         } catch (err) {
             console.error("Supabase update error:", err.message);
-            alert("Failed to update member");
+            alert("Failed to update member: " + err.message);
+        } finally {
+            setLoading(false);
         }
     };
+
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     let newMember = { ...member };
+    //     delete newMember.id
+
+
+    //     try {
+    //         const { data, error } = await supabase
+    //             .from("members")
+    //             .update(newMember)
+    //             .eq("id", id)
+    //             .select();
+
+    //         if (error) {
+    //             throw error;
+    //         } else {
+    //             alert("Member updated successfully!");
+    //             navigate("/id", { state: { member: data[0] } })
+    //         }
+
+
+    //     } catch (err) {
+    //         console.error("Supabase update error:", err.message);
+    //         alert("Failed to update member");
+    //     }
+    // };
 
     if (loading) {
         return <ThreeDotLoader />
@@ -137,7 +192,7 @@ const EditMember = () => {
 
             </div>
             <h1>Membership Data Update</h1>
-            <form onSubmit={handleSubmit} className="user-form">
+            <div className='user-form'>
 
                 {/* Personal Bio-Data Section */}
                 <fieldset>
@@ -566,7 +621,7 @@ const EditMember = () => {
                 </fieldset>
 
                 <div className="form-actions">
-                    <button type="submit" className="submit-btn" disabled={loading}>
+                    <button onClick={handleSubmit} type="submit" className="submit-btn" disabled={loading}>
                         {loading ? (
                             <>
                                 <span className="spinner"></span>
@@ -578,7 +633,7 @@ const EditMember = () => {
                     </button>
                     {/* <button type="button" className="cancel-btn">Cancel</button> */}
                 </div>
-            </form>
+            </div>
         </div>
     );
 };
