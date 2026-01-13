@@ -21,7 +21,7 @@ const Login = () => {
 
         // Fetch data from Supabase
         const fetchMember = async () => {
-            let userId = uniqueId.toUpperCase();
+            let userId = uniqueId.toUpperCase().trim();
             try {
                 setLoading(true)
                 const { data, error } = await supabase

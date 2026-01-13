@@ -125,8 +125,12 @@ const EditMember = () => {
         }
 
         // 4. Proceed with submission if validation passes
-        let newMember = { ...member };
-        delete newMember.id;
+        let newMember = {
+            ...member,
+            first_name: member.first_name?.trim().toUpperCase(),
+            other_names: member.other_names?.trim().toUpperCase(),
+            surname: member.surname?.trim().toUpperCase()
+        }; delete newMember.id;
 
         try {
             setLoading(true); // Ensure loading state is active during DB call
